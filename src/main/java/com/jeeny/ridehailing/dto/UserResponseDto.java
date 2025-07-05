@@ -2,19 +2,32 @@ package com.jeeny.ridehailing.dto;
 
 import com.jeeny.ridehailing.entity.UserType;
 import com.jeeny.ridehailing.entity.AvailabilityStatus;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.LocalDateTime;
 
 /**
  * DTO for user response
  */
+@Schema(description = "User information response")
 public class UserResponseDto {
     
+    @Schema(description = "User ID", example = "1")
     private Long id;
+    
+    @Schema(description = "User's full name", example = "John Doe")
     private String name;
+    
+    @Schema(description = "User's email address", example = "john.doe@example.com")
     private String email;
+    
+    @Schema(description = "Type of user", example = "PASSENGER")
     private UserType userType;
+    
+    @Schema(description = "Current availability status", example = "AVAILABLE")
     private AvailabilityStatus availabilityStatus;
+    
+    @Schema(description = "Account creation timestamp")
     private LocalDateTime createdAt;
     
     // Constructors

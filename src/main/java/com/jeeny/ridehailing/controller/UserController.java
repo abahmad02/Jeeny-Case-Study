@@ -68,7 +68,17 @@ public class UserController {
             description = "Invalid input or email already exists",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = ErrorResponse.class)
+                schema = @Schema(
+                    example = """
+                    {
+                      "status": 400,
+                      "error": "Bad Request",
+                      "message": "Invalid input or email already exists",
+                      "path": "/api/register",
+                      "timestamp": "2025-07-05T15:30:35.827"
+                    }
+                    """
+                )
             )
         )
     })
@@ -90,7 +100,7 @@ public class UserController {
             
             **Steps after login**:
             1. Copy the `token` from the response
-            2. Click the 🔒 Authorize button at the top
+            2. Click the Authorize button at the top
             3. Enter: `Bearer YOUR_TOKEN_HERE`
             4. Click Authorize
             
@@ -121,7 +131,17 @@ public class UserController {
             description = "Invalid credentials",
             content = @Content(
                 mediaType = "application/json",
-                schema = @Schema(implementation = ErrorResponse.class)
+                schema = @Schema(
+                    example = """
+                    {
+                      "status": 401,
+                      "error": "Unauthorized",
+                      "message": "Invalid credentials",
+                      "path": "/api/login",
+                      "timestamp": "2025-07-05T15:30:35.827"
+                    }
+                    """
+                )
             )
         )
     })
@@ -136,8 +156,30 @@ public class UserController {
     @GetMapping("/users/{userId}")
     @Operation(summary = "Get user by ID", description = "Retrieve user information by user ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "User found"),
-        @ApiResponse(responseCode = "404", description = "User not found")
+        @ApiResponse(
+            responseCode = "200", 
+            description = "User found",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = UserResponseDto.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "401", 
+            description = "Authentication required",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        )
     })
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long userId) {
         UserResponseDto user = userService.getUserById(userId);
@@ -149,7 +191,24 @@ public class UserController {
      */
     @GetMapping("/users/drivers")
     @Operation(summary = "Get all drivers", description = "Retrieve list of all drivers")
-    @ApiResponse(responseCode = "200", description = "Drivers retrieved successfully")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Drivers retrieved successfully",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = UserResponseDto.class, type = "array")
+            )
+        ),
+        @ApiResponse(
+            responseCode = "401", 
+            description = "Authentication required",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        )
+    })
     public ResponseEntity<List<UserResponseDto>> getAllDrivers() {
         List<UserResponseDto> drivers = userService.getAllDrivers();
         return ResponseEntity.ok(drivers);
@@ -160,7 +219,24 @@ public class UserController {
      */
     @GetMapping("/users/drivers/available")
     @Operation(summary = "Get available drivers", description = "Retrieve list of available drivers")
-    @ApiResponse(responseCode = "200", description = "Available drivers retrieved successfully")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Available drivers retrieved successfully",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = UserResponseDto.class, type = "array")
+            )
+        ),
+        @ApiResponse(
+            responseCode = "401", 
+            description = "Authentication required",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        )
+    })
     public ResponseEntity<List<UserResponseDto>> getAvailableDrivers() {
         List<UserResponseDto> availableDrivers = userService.getAvailableDrivers();
         return ResponseEntity.ok(availableDrivers);
@@ -172,9 +248,46 @@ public class UserController {
     @PutMapping("/users/drivers/{driverId}/availability")
     @Operation(summary = "Update driver availability", description = "Update driver availability status")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "200", description = "Availability updated successfully"),
-        @ApiResponse(responseCode = "400", description = "Invalid request or user is not a driver"),
-        @ApiResponse(responseCode = "404", description = "Driver not found")
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Availability updated successfully",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = UserResponseDto.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400", 
+            description = "Invalid request or user is not a driver",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "401", 
+            description = "Authentication required",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "403", 
+            description = "Access denied",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        ),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "Driver not found",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        )
     })
     public ResponseEntity<UserResponseDto> updateDriverAvailability(
             @PathVariable Long driverId,
@@ -188,7 +301,24 @@ public class UserController {
      */
     @GetMapping("/users/passengers")
     @Operation(summary = "Get all passengers", description = "Retrieve list of all passengers")
-    @ApiResponse(responseCode = "200", description = "Passengers retrieved successfully")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Passengers retrieved successfully",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = UserResponseDto.class, type = "array")
+            )
+        ),
+        @ApiResponse(
+            responseCode = "401", 
+            description = "Authentication required",
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = ErrorResponse.class)
+            )
+        )
+    })
     public ResponseEntity<List<UserResponseDto>> getAllPassengers() {
         List<UserResponseDto> passengers = userService.getAllPassengers();
         return ResponseEntity.ok(passengers);

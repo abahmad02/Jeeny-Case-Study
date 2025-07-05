@@ -1,18 +1,31 @@
 package com.jeeny.ridehailing.exception;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
  * Standard error response structure
  */
+@Schema(description = "Error response structure")
 public class ErrorResponse {
     
+    @Schema(description = "HTTP status code")
     private int status;
+    
+    @Schema(description = "Error type")
     private String error;
+    
+    @Schema(description = "Error message")
     private String message;
+    
+    @Schema(description = "Request path")
     private String path;
+    
+    @Schema(description = "Timestamp when error occurred")
     private LocalDateTime timestamp;
+    
+    @Schema(description = "Validation errors for fields (if applicable)")
     private Map<String, String> validationErrors;
     
     // Constructors

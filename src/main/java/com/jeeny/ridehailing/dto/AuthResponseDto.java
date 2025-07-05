@@ -1,12 +1,20 @@
 package com.jeeny.ridehailing.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 /**
  * DTO for authentication response
  */
+@Schema(description = "Authentication response with JWT token")
 public class AuthResponseDto {
     
+    @Schema(description = "JWT token for authentication", example = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
     private String token;
+    
+    @Schema(description = "Token type", example = "Bearer")
     private String type = "Bearer";
+    
+    @Schema(description = "User information")
     private UserResponseDto user;
     
     // Constructors
