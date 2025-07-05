@@ -44,7 +44,6 @@ This application follows a layered architecture pattern:
 - **Database**: H2 (in-memory)
 - **Documentation**: OpenAPI 3 / Swagger UI
 - **Build Tool**: Maven
-- **Testing**: JUnit 5, Mockito, Spring Boot Test
 
 ## 📋 Prerequisites
 
