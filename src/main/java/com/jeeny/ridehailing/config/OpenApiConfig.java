@@ -35,9 +35,8 @@ import org.springframework.context.annotation.Configuration;
             - **Drivers**: bob.wilson@example.com, carol.brown@example.com, david.lee@example.com
             """,
         contact = @Contact(
-            name = "Jeeny Ride Hailing",
-            email = "support@jeeny.com",
-            url = "https://jeeny.com"
+            name = "Jeeny Lite Ride Hailing",
+            email = "abdullah123ahmad@gmail.com"
         ),
         license = @License(
             name = "MIT License",
