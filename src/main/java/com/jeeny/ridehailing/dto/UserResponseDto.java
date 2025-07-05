@@ -21,6 +21,9 @@ public class UserResponseDto {
     @Schema(description = "User's email address", example = "john.doe@example.com")
     private String email;
     
+    @Schema(description = "User's phone number", example = "+1234567890")
+    private String phoneNumber;
+    
     @Schema(description = "Type of user", example = "PASSENGER")
     private UserType userType;
     
@@ -33,11 +36,12 @@ public class UserResponseDto {
     // Constructors
     public UserResponseDto() {}
     
-    public UserResponseDto(Long id, String name, String email, UserType userType, 
+    public UserResponseDto(Long id, String name, String email, String phoneNumber, UserType userType, 
                           AvailabilityStatus availabilityStatus, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.userType = userType;
         this.availabilityStatus = availabilityStatus;
         this.createdAt = createdAt;
@@ -68,6 +72,14 @@ public class UserResponseDto {
         this.email = email;
     }
     
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+    
     public UserType getUserType() {
         return userType;
     }
@@ -90,5 +102,18 @@ public class UserResponseDto {
     
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    
+    @Override
+    public String toString() {
+        return "UserResponseDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", userType=" + userType +
+                ", availabilityStatus=" + availabilityStatus +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }

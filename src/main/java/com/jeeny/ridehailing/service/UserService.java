@@ -61,6 +61,7 @@ public class UserService {
         User user = new User();
         user.setName(registrationDto.getName());
         user.setEmail(registrationDto.getEmail());
+        user.setPhoneNumber(registrationDto.getPhoneNumber());
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         user.setUserType(registrationDto.getUserType());
         
@@ -175,6 +176,7 @@ public class UserService {
         dto.setId(user.getId());
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
+        dto.setPhoneNumber(user.getPhoneNumber());
         dto.setUserType(user.getUserType());
         dto.setAvailabilityStatus(user.getAvailabilityStatus());
         dto.setCreatedAt(user.getCreatedAt());

@@ -52,6 +52,7 @@ class UserServiceTest {
         samplePassenger.setId(1L);
         samplePassenger.setName("John Doe");
         samplePassenger.setEmail("john.doe@example.com");
+        samplePassenger.setPhoneNumber("+1234567890");
         samplePassenger.setPassword("encodedPassword");
         samplePassenger.setUserType(UserType.PASSENGER);
         samplePassenger.setCreatedAt(LocalDateTime.now());
@@ -61,6 +62,7 @@ class UserServiceTest {
         sampleDriver.setId(2L);
         sampleDriver.setName("Jane Smith");
         sampleDriver.setEmail("jane.smith@example.com");
+        sampleDriver.setPhoneNumber("+1234567891");
         sampleDriver.setPassword("encodedPassword");
         sampleDriver.setUserType(UserType.DRIVER);
         sampleDriver.setAvailabilityStatus(AvailabilityStatus.AVAILABLE);
@@ -70,12 +72,14 @@ class UserServiceTest {
         passengerRegistrationDto = new UserRegistrationDto();
         passengerRegistrationDto.setName("John Doe");
         passengerRegistrationDto.setEmail("john.doe@example.com");
+        passengerRegistrationDto.setPhoneNumber("+1234567890");
         passengerRegistrationDto.setPassword("password123");
         passengerRegistrationDto.setUserType(UserType.PASSENGER);
         
         driverRegistrationDto = new UserRegistrationDto();
         driverRegistrationDto.setName("Jane Smith");
         driverRegistrationDto.setEmail("jane.smith@example.com");
+        driverRegistrationDto.setPhoneNumber("+1234567891");
         driverRegistrationDto.setPassword("password123");
         driverRegistrationDto.setUserType(UserType.DRIVER);
     }

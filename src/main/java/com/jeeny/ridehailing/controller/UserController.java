@@ -47,7 +47,8 @@ public class UserController {
             ```json
             {
               "name": "John Doe",
-              "email": "john.doe@example.com", 
+              "email": "john.doe@example.com",
+              "phoneNumber": "+1234567890",
               "password": "password123",
               "userType": "PASSENGER"
             }

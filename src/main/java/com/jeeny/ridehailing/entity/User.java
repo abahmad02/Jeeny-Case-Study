@@ -30,6 +30,11 @@ public class User {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
     
+    @NotBlank(message = "Phone number is required")
+    @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 characters")
+    @Column(nullable = false, length = 15, name = "phone_number")
+    private String phoneNumber;
+    
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     @Column(nullable = false)
@@ -60,9 +65,10 @@ public class User {
     // Constructors
     public User() {}
     
-    public User(String name, String email, String password, UserType userType) {
+    public User(String name, String email, String phoneNumber, String password, UserType userType) {
         this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.password = password;
         this.userType = userType;
         this.availabilityStatus = userType == UserType.DRIVER ? AvailabilityStatus.AVAILABLE : null;
@@ -102,6 +108,14 @@ public class User {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     
     public String getPassword() {
@@ -166,6 +180,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", userType=" + userType +
                 ", availabilityStatus=" + availabilityStatus +
                 '}';

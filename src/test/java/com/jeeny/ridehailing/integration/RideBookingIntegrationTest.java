@@ -48,6 +48,7 @@ class RideBookingIntegrationTest {
         UserRegistrationDto passengerDto = new UserRegistrationDto();
         passengerDto.setName("Test Passenger");
         passengerDto.setEmail("passenger@test.com");
+        passengerDto.setPhoneNumber("+1234567890");
         passengerDto.setPassword("password123");
         passengerDto.setUserType(UserType.PASSENGER);
         
@@ -57,12 +58,14 @@ class RideBookingIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name").value("Test Passenger"))
                 .andExpect(jsonPath("$.email").value("passenger@test.com"))
+                .andExpect(jsonPath("$.phoneNumber").value("+1234567890"))
                 .andExpect(jsonPath("$.userType").value("PASSENGER"));
         
         // Register a driver
         UserRegistrationDto driverDto = new UserRegistrationDto();
         driverDto.setName("Test Driver");
         driverDto.setEmail("driver@test.com");
+        driverDto.setPhoneNumber("+1234567891");
         driverDto.setPassword("password123");
         driverDto.setUserType(UserType.DRIVER);
         
@@ -187,6 +190,7 @@ class RideBookingIntegrationTest {
         UserRegistrationDto invalidUser = new UserRegistrationDto();
         invalidUser.setName("Test User");
         invalidUser.setEmail("invalid-email");
+        invalidUser.setPhoneNumber("+1234567890");
         invalidUser.setPassword("password123");
         invalidUser.setUserType(UserType.PASSENGER);
         
@@ -199,6 +203,7 @@ class RideBookingIntegrationTest {
         UserRegistrationDto shortPasswordUser = new UserRegistrationDto();
         shortPasswordUser.setName("Test User");
         shortPasswordUser.setEmail("test@example.com");
+        shortPasswordUser.setPhoneNumber("+1234567891");
         shortPasswordUser.setPassword("123");
         shortPasswordUser.setUserType(UserType.PASSENGER);
         

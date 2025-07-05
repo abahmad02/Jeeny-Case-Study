@@ -23,6 +23,11 @@ public class UserRegistrationDto {
     @Schema(description = "User's email address", example = "john.doe@example.com", required = true)
     private String email;
     
+    @NotBlank(message = "Phone number is required")
+    @Size(min = 10, max = 15, message = "Phone number must be between 10 and 15 characters")
+    @Schema(description = "User's phone number", example = "+1234567890", required = true)
+    private String phoneNumber;
+    
     @NotBlank(message = "Password is required")
     @Size(min = 6, message = "Password must be at least 6 characters")
     @Schema(description = "User's password", example = "password123", required = true)
@@ -35,9 +40,10 @@ public class UserRegistrationDto {
     // Constructors
     public UserRegistrationDto() {}
     
-    public UserRegistrationDto(String name, String email, String password, UserType userType) {
+    public UserRegistrationDto(String name, String email, String phoneNumber, String password, UserType userType) {
         this.name = name;
         this.email = email;
+        this.phoneNumber = phoneNumber;
         this.password = password;
         this.userType = userType;
     }
@@ -57,6 +63,14 @@ public class UserRegistrationDto {
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+    
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     
     public String getPassword() {
@@ -80,6 +94,7 @@ public class UserRegistrationDto {
         return "UserRegistrationDto{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", userType=" + userType +
                 '}';
     }

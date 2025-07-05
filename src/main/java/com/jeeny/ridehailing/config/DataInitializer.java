@@ -42,14 +42,14 @@ public class DataInitializer implements CommandLineRunner {
         logger.info("Initializing database with sample data...");
         
         // Create sample passengers
-        User passenger1 = createUser("John Doe", "john.doe@example.com", "password123", UserType.PASSENGER);
-        User passenger2 = createUser("Jane Smith", "jane.smith@example.com", "password123", UserType.PASSENGER);
-        User passenger3 = createUser("Alice Johnson", "alice.johnson@example.com", "password123", UserType.PASSENGER);
+        User passenger1 = createUser("John Doe", "john.doe@example.com", "+1234567890", "password123", UserType.PASSENGER);
+        User passenger2 = createUser("Jane Smith", "jane.smith@example.com", "+1234567891", "password123", UserType.PASSENGER);
+        User passenger3 = createUser("Alice Johnson", "alice.johnson@example.com", "+1234567892", "password123", UserType.PASSENGER);
         
         // Create sample drivers
-        User driver1 = createUser("Bob Wilson", "bob.wilson@example.com", "password123", UserType.DRIVER);
-        User driver2 = createUser("Carol Brown", "carol.brown@example.com", "password123", UserType.DRIVER);
-        User driver3 = createUser("David Lee", "david.lee@example.com", "password123", UserType.DRIVER);
+        User driver1 = createUser("Bob Wilson", "bob.wilson@example.com", "+1234567893", "password123", UserType.DRIVER);
+        User driver2 = createUser("Carol Brown", "carol.brown@example.com", "+1234567894", "password123", UserType.DRIVER);
+        User driver3 = createUser("David Lee", "david.lee@example.com", "+1234567895", "password123", UserType.DRIVER);
         
         // Save users
         userRepository.save(passenger1);
@@ -69,10 +69,11 @@ public class DataInitializer implements CommandLineRunner {
         logger.info("Password for all users: password123");
     }
     
-    private User createUser(String name, String email, String password, UserType userType) {
+    private User createUser(String name, String email, String phoneNumber, String password, UserType userType) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
+        user.setPhoneNumber(phoneNumber);
         user.setPassword(passwordEncoder.encode(password));
         user.setUserType(userType);
         
