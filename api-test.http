@@ -1,0 +1,189 @@
+### 🚀 Mini Ride Booking System API Testing Guide
+
+@baseUrl = http://localhost:8080
+@contentType = application/json
+
+#############################################
+# STEP 1: TEST WITHOUT AUTHENTICATION
+#############################################
+
+### 1.1 Register a New Passenger (No auth needed)
+POST {{baseUrl}}/api/register
+Content-Type: {{contentType}}
+
+{
+  "name": "Test Passenger",
+  "email": "test.passenger@example.com",
+  "password": "password123",
+  "userType": "PASSENGER"
+}
+
+### 1.2 Register a New Driver (No auth needed)  
+POST {{baseUrl}}/api/register
+Content-Type: {{contentType}}
+
+{
+  "name": "Test Driver",
+  "email": "test.driver@example.com",
+  "password": "password123",
+  "userType": "DRIVER"
+}
+
+#############################################
+# STEP 2: LOGIN TO GET JWT TOKENS
+#############################################
+
+### 2.1 Login as Passenger (COPY THE TOKEN FROM RESPONSE!)
+POST {{baseUrl}}/api/login
+Content-Type: {{contentType}}
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### 2.2 Login as Driver (COPY THE TOKEN FROM RESPONSE!)
+POST {{baseUrl}}/api/login
+Content-Type: {{contentType}}
+
+{
+  "email": "bob.wilson@example.com", 
+  "password": "password123"
+}
+
+#############################################
+# STEP 3: REPLACE TOKENS BELOW
+# After running login above, copy the "token" value 
+# and replace YOUR_PASSENGER_TOKEN and YOUR_DRIVER_TOKEN
+#############################################
+
+@passengerToken = YOUR_PASSENGER_TOKEN_HERE
+@driverToken = YOUR_DRIVER_TOKEN_HERE
+
+#############################################
+# STEP 4: PASSENGER ACTIONS (Use passenger token)
+#############################################
+
+### 4.1 Request a Ride (Passenger)
+POST {{baseUrl}}/api/rides/request
+Content-Type: {{contentType}}
+Authorization: Bearer {{passengerToken}}
+
+{
+  "pickupLocation": "Airport Terminal 1",
+  "dropLocation": "Downtown Hotel",
+  "rideType": "CAR"
+}
+
+### 4.2 Get My Ride History (Passenger)
+GET {{baseUrl}}/api/rides/history
+Authorization: Bearer {{passengerToken}}
+
+### 4.3 Get Ride Details (use ride ID from request above)
+GET {{baseUrl}}/api/rides/1
+Authorization: Bearer {{passengerToken}}
+
+#############################################
+# STEP 5: DRIVER ACTIONS (Use driver token)
+# 
+# 📋 RIDE STATUS FLOW:
+# REQUESTED → ACCEPTED → IN_PROGRESS → COMPLETED
+#     ↓
+# REJECTED/CANCELLED
+#
+# ⚠️  You can only move forward in this flow!
+#############################################
+
+### 5.1 View Available Ride Requests (Driver)
+GET {{baseUrl}}/api/rides/available
+Authorization: Bearer {{driverToken}}
+
+### 5.2 Accept a Ride (Driver) - use ride ID from available requests
+POST {{baseUrl}}/api/rides/1/accept
+Authorization: Bearer {{driverToken}}
+
+### 5.3 Start the Ride (Driver) - change status to IN_PROGRESS
+PUT {{baseUrl}}/api/rides/1/status
+Content-Type: {{contentType}}
+Authorization: Bearer {{driverToken}}
+
+{
+  "status": "IN_PROGRESS"
+}
+
+### 5.4 Complete the Ride (Driver)
+PUT {{baseUrl}}/api/rides/1/status
+Content-Type: {{contentType}}
+Authorization: Bearer {{driverToken}}
+
+{
+  "status": "COMPLETED"
+}
+
+### 5.5 Get My Ride History (Driver)
+GET {{baseUrl}}/api/rides/history
+Authorization: Bearer {{driverToken}}
+
+#############################################
+# STEP 6: USER MANAGEMENT (Both can use)
+#############################################
+
+### 6.1 Get All Drivers
+GET {{baseUrl}}/api/users/drivers
+Authorization: Bearer {{passengerToken}}
+
+### 6.2 Get Available Drivers Only
+GET {{baseUrl}}/api/users/drivers/available
+Authorization: Bearer {{passengerToken}}
+
+### 6.3 Update Driver Availability (Driver only)
+PUT {{baseUrl}}/api/users/drivers/2/availability?status=UNAVAILABLE
+Authorization: Bearer {{driverToken}}
+
+#############################################
+# STEP 7: ALTERNATIVE - Use Pre-loaded Sample Data
+# If you don't want to register new users, use these:
+#############################################
+
+### Sample Passenger Login
+POST {{baseUrl}}/api/login
+Content-Type: {{contentType}}
+
+{
+  "email": "john.doe@example.com",
+  "password": "password123"
+}
+
+### Sample Driver Login  
+POST {{baseUrl}}/api/login
+Content-Type: {{contentType}}
+
+{
+  "email": "bob.wilson@example.com",
+  "password": "password123"
+}
+
+###
+
+# 📝 INSTRUCTIONS:
+# 
+# 1. 🚀 Start your Spring Boot app in VS Code (Press F5)
+# 
+# 2. 🧪 Test the endpoints in order:
+#    - First run the registration endpoints (Step 1)
+#    - Then login to get tokens (Step 2) 
+#    - Copy the token values and replace @passengerToken and @driverToken (Step 3)
+#    - Test passenger actions (Step 4)
+#    - Test driver actions (Step 5)
+#
+# 3. 🔍 In Swagger UI (http://localhost:8080/swagger-ui.html):
+#    - First test /api/register and /api/login (no auth needed)
+#    - Copy the token from login response
+#    - Click 🔒 "Authorize" button at top of Swagger UI
+#    - Enter: Bearer YOUR_TOKEN_HERE
+#    - Click "Authorize"
+#    - Now all other endpoints will work!
+#
+# 4. 👥 Pre-loaded sample users (password: password123):
+#    Passengers: john.doe@example.com, jane.smith@example.com, alice.johnson@example.com
+#    Drivers: bob.wilson@example.com, carol.brown@example.com, david.lee@example.com

@@ -1,0 +1,81 @@
+package com.jeeny.ridehailing.dto;
+
+import com.jeeny.ridehailing.entity.UserType;
+import com.jeeny.ridehailing.entity.AvailabilityStatus;
+
+import java.time.LocalDateTime;
+
+/**
+ * DTO for user response
+ */
+public class UserResponseDto {
+    
+    private Long id;
+    private String name;
+    private String email;
+    private UserType userType;
+    private AvailabilityStatus availabilityStatus;
+    private LocalDateTime createdAt;
+    
+    // Constructors
+    public UserResponseDto() {}
+    
+    public UserResponseDto(Long id, String name, String email, UserType userType, 
+                          AvailabilityStatus availabilityStatus, LocalDateTime createdAt) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.userType = userType;
+        this.availabilityStatus = availabilityStatus;
+        this.createdAt = createdAt;
+    }
+    
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public UserType getUserType() {
+        return userType;
+    }
+    
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+    
+    public AvailabilityStatus getAvailabilityStatus() {
+        return availabilityStatus;
+    }
+    
+    public void setAvailabilityStatus(AvailabilityStatus availabilityStatus) {
+        this.availabilityStatus = availabilityStatus;
+    }
+    
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+    
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+}
