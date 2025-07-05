@@ -434,19 +434,6 @@ spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 📞 Support
-
-For support and questions:
-- Email: support@jeeny.com
-- Documentation: Check the Swagger UI at `/swagger-ui.html`
-- Issues: Create an issue in the repository
-
----
-
 ## 🎯 Design Decisions & Assumptions
 
 ### Assumptions Made
